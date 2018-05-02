@@ -1,0 +1,3 @@
+echo Building the project...
+dotnet restore
+dotnet build
