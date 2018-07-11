@@ -17,6 +17,11 @@ namespace TinyShoppingCart.Server.DataAccess.UnitOfWork
             await _context.SaveChangesAsync();
         }
 
+        public void Commit()
+        {
+            _context.SaveChanges();
+        }
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -51,6 +56,7 @@ namespace TinyShoppingCart.Server.DataAccess.UnitOfWork
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
         #endregion
 
     }

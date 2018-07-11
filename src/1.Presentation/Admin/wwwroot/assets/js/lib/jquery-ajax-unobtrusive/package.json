@@ -1,0 +1,59 @@
+{
+  "_from": "jquery-ajax-unobtrusive",
+  "_id": "jquery-ajax-unobtrusive@3.2.4",
+  "_inBundle": false,
+  "_integrity": "sha1-3Y+cpqrVH3Tt3KuCu8AD0qDhGA4=",
+  "_location": "/jquery-ajax-unobtrusive",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "jquery-ajax-unobtrusive",
+    "name": "jquery-ajax-unobtrusive",
+    "escapedName": "jquery-ajax-unobtrusive",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery-ajax-unobtrusive/-/jquery-ajax-unobtrusive-3.2.4.tgz",
+  "_shasum": "dd8f9ca6aad51f74eddcab82bbc003d2a0e1180e",
+  "_spec": "jquery-ajax-unobtrusive",
+  "_where": "H:\\10.KPI\\2018\\TinyShoppingCart\\src\\1.Presentation\\Admin",
+  "author": {
+    "name": "Microsoft"
+  },
+  "bugs": {
+    "url": "https://github.com/aspnet/jquery-ajax-unobtrusive/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "jquery": ">=1.8"
+  },
+  "deprecated": false,
+  "description": "Add-on to jQuery Ajax to enable unobtrusive options in data-* attributes",
+  "devDependencies": {
+    "gulp": "3.8.11",
+    "gulp-rename": "1.2.2",
+    "gulp-uglify": "1.2.0"
+  },
+  "homepage": "https://github.com/aspnet/jquery-ajax-unobtrusive",
+  "keywords": [
+    "unobtrusive",
+    "ajax",
+    "mvc",
+    "asp.net",
+    "jquery"
+  ],
+  "license": "https://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm",
+  "main": "jquery.unobtrusive-ajax.js",
+  "name": "jquery-ajax-unobtrusive",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aspnet/jquery-ajax-unobtrusive.git"
+  },
+  "version": "3.2.4"
+}

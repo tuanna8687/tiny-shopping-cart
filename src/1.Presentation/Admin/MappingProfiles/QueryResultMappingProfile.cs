@@ -12,7 +12,6 @@ namespace TinyShoppingCart.Server.Presentation.Admin.MappingProfiles
         {
             CreateMap(typeof(IQueryResult<>), typeof(QueryResultViewModel<>))
                 .ForMember("RecordsTotal", opt => opt.MapFrom("TotalItems"))
-                .ForMember("Data", opt => opt.MapFrom("Items"))
                 .AfterMap(CustomMap);
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -58,6 +59,31 @@ namespace TinyShoppingCart.Server.Presentation.Admin.FakeRepositories
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
+        }
+
+        public Task<IEnumerable<ProductCategory>> TreeListAsync(Func<ProductCategory, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(ProductCategory entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(ProductCategory entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int productCategoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ProductCategory> GetAll()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

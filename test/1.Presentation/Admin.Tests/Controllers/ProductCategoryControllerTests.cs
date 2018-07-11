@@ -86,64 +86,64 @@ namespace TinyShoppingCart.Server.Presentation.Admin.Controllers
 
         public class TheListMethod: ProductCategoryControllerTestBase
         {
-            [Fact]
-            public void ReturnBadRequest_DataTableParamIsNull()
-            {
-                // Arrange
+            // [Fact]
+            // public void ReturnBadRequest_DataTableParamIsNull()
+            // {
+            //     // Arrange
 
-                // Act
-                var result = _underTestController.List(null);
+            //     // Act
+            //     var result = _underTestController.List(null);
 
-                // Assert
-                Assert.IsType<BadRequestResult>(result);
-            }
+            //     // Assert
+            //     Assert.IsType<BadRequestResult>(result);
+            // }
 
-            [Fact]
-            public void ReturnBadRequest_ModelBindingIsFailed()
-            {
-                // Arrange
-                DataTableParamViewModel paramViewModel = new DataTableParamViewModel();
-                _underTestController.ModelState.AddModelError("Columns", "Required");
+            // [Fact]
+            // public void ReturnBadRequest_ModelBindingIsFailed()
+            // {
+            //     // Arrange
+            //     DataTableParamViewModel paramViewModel = new DataTableParamViewModel();
+            //     _underTestController.ModelState.AddModelError("Columns", "Required");
 
-                // Act
-                var result = _underTestController.List(paramViewModel);
+            //     // Act
+            //     var result = _underTestController.List(paramViewModel);
 
-                // Assert
-                Assert.IsType<BadRequestResult>(result);
-            }
+            //     // Assert
+            //     Assert.IsType<BadRequestResult>(result);
+            // }
 
-            [Fact]
-            public void ReturnJson()
-            {
-                // Arrange
-                var fakeProductCategories = _fakeRepository.ListAsync().Result;
-                QueryResultViewModel<ProductCategoryViewModel> mockResult = new QueryResultViewModel<ProductCategoryViewModel>()
-                {
-                    Draw = 1,
-                    RecordsTotal = fakeProductCategories.TotalItems,
-                    RecordsFiltered = fakeProductCategories.TotalItems,
-                    Data = fakeProductCategories.Items.Select(c => new ProductCategoryViewModel() { Id = c.Id, Name = c.Name, ParentName = c.Parent != null ? c.Parent.Name : null})
-                };
+            // [Fact]
+            // public void ReturnJson()
+            // {
+            //     // Arrange
+            //     var fakeProductCategories = _fakeRepository.ListAsync().Result;
+            //     QueryResultViewModel<ProductCategoryViewModel> mockResult = new QueryResultViewModel<ProductCategoryViewModel>()
+            //     {
+            //         Draw = 1,
+            //         RecordsTotal = fakeProductCategories.TotalItems,
+            //         RecordsFiltered = fakeProductCategories.TotalItems,
+            //         Data = fakeProductCategories.Items.Select(c => new ProductCategoryViewModel() { Id = c.Id, Name = c.Name, ParentName = c.Parent != null ? c.Parent.Name : null})
+            //     };
                 
-                _mockMapper.Setup(mapper => 
-                        mapper.Map<IQueryResult<ProductCategory>, QueryResultViewModel<ProductCategoryViewModel>>(It.IsAny<IQueryResult<ProductCategory>>())
-                    ).Returns(mockResult);
+            //     _mockMapper.Setup(mapper => 
+            //             mapper.Map<IQueryResult<ProductCategory>, QueryResultViewModel<ProductCategoryViewModel>>(It.IsAny<IQueryResult<ProductCategory>>())
+            //         ).Returns(mockResult);
 
-                _underTestController = new ProductCategoryController(_fakeRepository, _mockMapper.Object);
+            //     _underTestController = new ProductCategoryController(_fakeRepository, _mockMapper.Object);
                 
-                DataTableParamViewModel paramViewModel = new DataTableParamViewModel();
+            //     DataTableParamViewModel paramViewModel = new DataTableParamViewModel();
 
-                // Act
-                var result = _underTestController.List(paramViewModel);
+            //     // Act
+            //     var result = _underTestController.List(paramViewModel);
             
-                // Assert
-                Assert.IsType<JsonResult>(result);
-                Assert.IsType<QueryResultViewModel<ProductCategoryViewModel>>((result as JsonResult).Value);
-                var actualValue = (result as JsonResult).Value as QueryResultViewModel<ProductCategoryViewModel>;
-                Assert.True(actualValue.Draw == paramViewModel.Draw);
-                Assert.True(actualValue.RecordsTotal == mockResult.RecordsTotal);
-                Assert.True(actualValue.RecordsFiltered == mockResult.RecordsFiltered);
-            }
+            //     // Assert
+            //     Assert.IsType<JsonResult>(result);
+            //     Assert.IsType<QueryResultViewModel<ProductCategoryViewModel>>((result as JsonResult).Value);
+            //     var actualValue = (result as JsonResult).Value as QueryResultViewModel<ProductCategoryViewModel>;
+            //     Assert.True(actualValue.Draw == paramViewModel.Draw);
+            //     Assert.True(actualValue.RecordsTotal == mockResult.RecordsTotal);
+            //     Assert.True(actualValue.RecordsFiltered == mockResult.RecordsFiltered);
+            // }
         }
     }
 }

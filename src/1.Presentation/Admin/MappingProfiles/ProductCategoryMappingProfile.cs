@@ -9,8 +9,8 @@ namespace TinyShoppingCart.Server.Presentation.Admin.MappingProfiles
     {
         public ProductCategoryMappingProfile()
         {
-            CreateMap<ProductCategory, ProductCategoryViewModel>()
-                .ForMember(des => des.ParentName, opt => opt.MapFrom(src => src.Parent.Name));
+            CreateMap<ProductCategory, ViewProductCategoryViewModel>();
+            CreateMap<EditProductCategoryViewModel, ProductCategory>();
         }
     }
 }

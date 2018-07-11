@@ -16,6 +16,7 @@ using TinyShoppingCart.Server.Domain.UnitOfWork;
 using TinyShoppingCart.Server.DataAccess.UnitOfWork;
 using TinyShoppingCart.Server.Domain.Repositories;
 using TinyShoppingCart.Server.DataAccess.Repositories;
+using DataTables.AspNet.AspNetCore;
 
 namespace TinyShoppingCart.Server.Presentation.Admin
 {
@@ -47,6 +48,8 @@ namespace TinyShoppingCart.Server.Presentation.Admin
             services.AddAutoMapper();
 
             services.AddMvc();
+
+            services.RegisterDataTables();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,9 +13,15 @@
     <title>Ela - Bootstrap Admin Dashboard Template</title>
     <!-- Bootstrap Core CSS -->
     <link href="~/assets/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- jquery-widgets -->
+    <link rel="stylesheet" href="~/assets/css/lib/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="~/assets/css/lib/jqwidgets/styles/jqx.darkblue.css" type="text/css" />
     <!-- Custom CSS -->
     <link href="~/assets/css/helper.css" rel="stylesheet">
     <link href="~/assets/css/style.css" rel="stylesheet">
+
+    <!-- All Jquery -->
+    <script src="~/assets/js/lib/jquery/jquery.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -386,15 +392,7 @@
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                @RenderBody()
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @RenderBody()
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->
@@ -406,7 +404,7 @@
     </div>
     <!-- End Wrapper -->
     <!-- All Jquery -->
-    <script src="~/assets/js/lib/jquery/jquery.min.js"></script>
+    <!-- <script src="~/assets/js/lib/jquery/jquery.min.js"></script> -->
     <!-- Bootstrap tether Core JavaScript -->
     <script src="~/assets/js/lib/bootstrap/js/popper.min.js"></script>
     <script src="~/assets/js/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -416,10 +414,15 @@
     <script src="~/assets/js/sidebarmenu.js"></script>
     <!--stickey kit -->
     <script src="~/assets/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+     <!--jquery-widgets -->
+    <script type="text/javascript" src="~/assets/js/lib/jqwidgets/jqxcore1.js"></script>
+    <script type="text/javascript" src="~/assets/js/lib/jqwidgets/jqxdata.js"></script>
+    <!-- <script type="text/javascript" src="~/assets/js/lib/jqwidgets/jqxdraw.js"></script> -->
+
+    @RenderSection("scripts", required: false)
+
     <!--Custom JavaScript -->
     <script src="~/assets/js/custom.min.js"></script>
-    
-    @RenderSection("scripts", required: false)
 </body>
 
 </html>

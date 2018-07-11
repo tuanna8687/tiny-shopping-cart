@@ -1,0 +1,16 @@
+{
+  "name": "admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery-ajax-unobtrusive": "^3.2.4",
+    "jquery-validation-unobtrusive": "^3.2.10",
+    "jqwidgets-scripts": "^5.7.2"
+  }
+}

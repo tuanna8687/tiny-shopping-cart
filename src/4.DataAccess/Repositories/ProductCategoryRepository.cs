@@ -59,7 +59,7 @@ namespace TinyShoppingCart.Server.DataAccess.Repositories
             var columnsMap = new Dictionary<string, Expression<Func<ProductCategory, object>>>() 
             {
                 {"name", pc => pc.Name},
-                {"parentmame", pc => pc.Parent.Name}
+                //{"parentmame", pc => pc.Parent.Name}
             };
             query = query.ApplyOrdering(queryObj, columnsMap);
 
@@ -70,6 +70,43 @@ namespace TinyShoppingCart.Server.DataAccess.Repositories
             result.Items = await query.ToListAsync();
 
             return result;
+        }
+
+        public async Task<IEnumerable<ProductCategory>> TreeListAsync(Func<ProductCategory, bool> predicate)
+        {
+            // Get all data from database to EF builds hierarchy structure automatically.
+            IList<ProductCategory> fullData = _dbSet.OrderBy(p => p.Id).ToList();
+
+            if(predicate == null)
+            {
+                return fullData;
+            }
+
+            return fullData.Where(predicate);
+        }
+
+        public void Add(ProductCategory entity)
+        {
+            _dbSet.Add(entity);
+        }
+
+        public void Update(ProductCategory entity)
+        {
+            _context.Entry<ProductCategory>(entity).State = EntityState.Modified;
+        }
+
+        public void Delete(int productCategoryId)
+        {
+            var entity = _dbSet.Find(productCategoryId);
+            if(entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
+        }
+
+        public IEnumerable<ProductCategory> GetAll()
+        {
+            return _dbSet;
         }
 
         #region IDisposable Support
@@ -106,6 +143,7 @@ namespace TinyShoppingCart.Server.DataAccess.Repositories
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
         #endregion
 
     }
