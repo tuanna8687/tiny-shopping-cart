@@ -1,6 +1,6 @@
 namespace TinyShoppingCart.Domain.Entities
 {
-    public class Entity : EntityWithTypeId<int>
+    public class Entity : EntityWithTypedId<int>
     {
         
     }
