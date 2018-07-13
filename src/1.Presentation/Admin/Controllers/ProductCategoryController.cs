@@ -109,6 +109,53 @@ namespace TinyShoppingCart.Server.Presentation.Admin.Controllers
             return Json("OK");
         }
 
+        [HttpPost]
+        public IActionResult Update(int id)
+        {
+            IQueryObject queryObj = new QueryObject {
+                IsTracking = false
+            };
+
+            var productCategory = _productCategoryRepository.GetAsync(id, queryObj);
+            if(productCategory == null)
+            {
+                return BadRequest();
+            }
+            var viewModel = _mapper.Map<ProductCategory, EditProductCategoryViewModel>(productCategory.Result);
+
+            var partialData = _productCategoryRepository.PartialTreeList(c => c.Id != id);
+            var filteredData = partialData.Where(c => c.ParentId == null).ToList();
+            
+            viewModel.FullCategories = _mapper.Map<IList<ProductCategory>, IList<ViewProductCategoryViewModel>>(filteredData);
+
+            return PartialView("_UpdatePartial", viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateData(EditProductCategoryViewModel viewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var queryObj = new QueryObject {IsTracking = false};
+            var result = _productCategoryRepository.GetAsync(viewModel.Id, queryObj);
+            if(result.Result == null)
+            {
+                return BadRequest();
+            }
+
+            var entity = _mapper.Map<EditProductCategoryViewModel, ProductCategory>(viewModel, result.Result);
+            _productCategoryRepository.Update(entity);
+            _unitOfWork.Commit();
+
+            var fullTree = _productCategoryRepository.TreeListAsync(c => c.ParentId == null);
+            var fullTreeViewModel = _mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ViewProductCategoryViewModel>>(fullTree.Result);
+
+            return PartialView("_TreePartial", fullTreeViewModel); 
+        }
+
         private void DeleteChildCategories(IEnumerable<ProductCategory> fullData, int productCategoryId)
         {
             var children = fullData.Where(c => c.ParentId == productCategoryId);

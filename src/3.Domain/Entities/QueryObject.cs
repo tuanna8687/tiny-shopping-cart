@@ -8,5 +8,6 @@ namespace TinyShoppingCart.Server.Domain.Entities
         public bool IsOrderAscending { get;set; }
         public int Start { get;set; }
         public int PageSize { get;set; }
+        public bool IsTracking { get;set; }
     }
 }

@@ -64,5 +64,15 @@ namespace TinyShoppingCart.Server.DataAccess.Extensions
 
             return query.Skip(queryObj.Start).Take(queryObj.PageSize);
         }
+
+        public static IQueryable<T> ApplyTracking<T>(this IQueryable<T> query, IQueryObject queryObj) where T: class
+        {
+            if(queryObj.IsTracking)
+            {
+                return query;
+            }
+
+            return query.AsNoTracking<T>();
+        }
     }
 }

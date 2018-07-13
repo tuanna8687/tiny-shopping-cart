@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 using TinyShoppingCart.Server.Domain.Entities;
@@ -82,6 +83,11 @@ namespace TinyShoppingCart.Server.Presentation.Admin.FakeRepositories
         }
 
         public IEnumerable<ProductCategory> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ProductCategory> PartialTreeList(Expression<Func<ProductCategory, bool>> predicate)
         {
             throw new NotImplementedException();
         }

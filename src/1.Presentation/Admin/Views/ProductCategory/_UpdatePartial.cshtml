@@ -1,0 +1,57 @@
+@model TinyShoppingCart.Server.Presentation.Admin.ViewModels.EditProductCategoryViewModel
+
+<script>
+    $(document).ready(function() {
+        debugger
+        $("#dropDownButton").jqxDropDownButton({ width: 150, height: 25});
+        $('#parentTree').on('select', function (event) {
+            var args = event.args;
+            var item = $('#parentTree').jqxTree('getItem', args.element);
+            var dropDownContent = '<div style="position: relative; margin-left: 3px; margin-top: 5px;">' + item.label + '</div>';
+            $("#dropDownButton").jqxDropDownButton('setContent', dropDownContent);
+            $("#dropDownButton").jqxDropDownButton('close');
+            $("#updateForm > #ParentId").val(item.value);
+        });
+
+        $('#parentTree').on('initialized', function (event) { 
+            var selectElement = getTreeElement($("#updateForm > #ParentId").val());
+            if(selectElement != null) {
+                $("#parentTree").jqxTree("selectItem", selectElement);
+                $("#parentTree").jqxTree("expandItem", selectElement)
+            }
+
+            function getTreeElement(id) {
+                var elements = $("#parentTree").jqxTree("getItems");
+                for(var i = 0; i < elements.length; i++) {
+                    var element = elements[i];
+                    if(element.value === id) {
+                        return element;
+                    }
+                }
+
+                return null;
+            }
+        });
+    });
+</script>
+
+<form asp-action="UpdateData" asp-controller="ProductCategory" id="updateForm">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="Id">
+    <input type="hidden" asp-for="ParentId">
+    <div class="form-group">
+        <label for="dropDownButton">Parent</label>
+        <div id="dropDownButton">
+            <jqx-tree style="border: none;" id="parentTree" 
+                itemsMember="Children" displayMember="Name" 
+                valueMember="Id" source="Model.FullCategories">
+            </jqx-tree>
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary" id="updateButton">Update</button>
+</form>

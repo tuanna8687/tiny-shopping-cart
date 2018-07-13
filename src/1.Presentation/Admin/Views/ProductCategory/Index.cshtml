@@ -4,6 +4,7 @@
 <div class="row">
     <div class="col-12">
         <input type="hidden" id="deleteUrl" value='@Url.Action("Delete", "ProductCategory")'>
+        <input type="hidden" id="editUrl" value='@Url.Action("Update", "ProductCategory")'>
 
         <!-- Tree view-->
         <div id="divTree">
@@ -14,6 +15,7 @@
         <div id='jqxMenu'>
             <ul>
                 <li>Add Item</li>
+                <li>Edit Item</li>
                 <li>Remove Item</li>
             </ul>
         </div>
@@ -21,10 +23,17 @@
         
 
         <!-- Create popup-->
-        <jqx-window id="creationWindow" autoOpen="false">
+        <jqx-window id="creationWindow" autoOpen="false" width="50%" height="50%">
             <jqx-window-header>Create Category</jqx-window-header>
             <jqx-window-body>
                 @await Html.PartialAsync("_CreatePartial", new EditProductCategoryViewModel())
+            </jqx-window-body>
+        </jqx-window>
+
+        <!-- Update popup-->
+        <jqx-window id="updateWindow" autoOpen="false" width="50%">
+            <jqx-window-header>Update Category</jqx-window-header>
+            <jqx-window-body>
             </jqx-window-body>
         </jqx-window>
 
@@ -33,13 +42,14 @@
 
 @section scripts
 {
-    @Html.Partial("_jQWidgetsTreeScriptsPartial");
-    @Html.Partial("_ValidationScriptsPartial");
-    @Html.Partial("_AjaxScriptsPartial");
+    @Html.Partial("_jQWidgetsTreeScriptsPartial")
+    @Html.Partial("_ValidationScriptsPartial")
+    @Html.Partial("_AjaxScriptsPartial")
+    <script src="~/assets/js/product-categories.js"></script>
 
     <script>
         $(document).ready(function() {
-            var contextMenu = $("#jqxMenu").jqxMenu({ width: '120px',  height: '56px', autoOpenPopup: false, mode: 'popup' });
+            var contextMenu = $("#jqxMenu").jqxMenu({ width: '120px',  height: '84px', autoOpenPopup: false, mode: 'popup' });
 
             var attachContextMenu = function () {
                 // open the context menu when the user presses the mouse right button.
@@ -75,6 +85,30 @@
                             $("#creationWindow").jqxWindow('open');
                         }
                         break;
+
+                    case "Edit Item":
+                        var selectedItem = $('#tree').jqxTree('selectedItem');
+                        if (selectedItem != null) {
+                            var editUrl = $("#editUrl").val();
+                            $.ajax({
+                                url: editUrl,
+                                method: 'POST',
+                                data: {
+                                    id: selectedItem.value
+                                }
+                            }).then(function(data) {
+                                debugger
+                                $('#updateWindow').jqxWindow({ content: data });
+                                var updateForm = $("#updateForm");
+                                $.validator.unobtrusive.parse(updateForm);
+                                registerSubmitEvenHandlerForUpdateForm(updateForm);
+                                
+                                $("#updateWindow").jqxWindow('open');
+                            });
+                            
+                        }
+                        break;
+
                     case "Remove Item":
                         var selectedItem = $('#tree').jqxTree('selectedItem');
                         if (selectedItem != null) {
@@ -94,6 +128,25 @@
                 }
             });
 
+            function registerSubmitEvenHandlerForUpdateForm(updateForm) {
+                updateForm.data("validator").settings.submitHandler = function (form) { 
+                    var formElement = $(form);
+                    var updateUrl = $(form).attr("action");
+
+                    $.ajax({
+                        url: updateUrl,
+                        method: 'POST',
+                        data: $(form).serialize()
+                    }).done(function(data) {
+                        $("#updateWindow").jqxWindow('close');
+                        $("#divTree").html(data);
+                        attachContextMenu();
+                    });
+
+                    return false;
+                };
+            }
+
             // disable the default browser's context menu.
             $(document).on('contextmenu', function (e) {
                 if ($(e.target).parents('.jqx-tree').length > 0) {
@@ -103,7 +156,7 @@
             });
 
 
-
+            debugger
             $("#createForm").data("validator").settings.submitHandler = function (form) { 
                 var formElement = $(form);
                 var createUrl = $(form).attr("action");
@@ -123,6 +176,7 @@
 
                 return false;
             };
+
         });
     </script>
 }

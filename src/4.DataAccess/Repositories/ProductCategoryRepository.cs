@@ -30,6 +30,8 @@ namespace TinyShoppingCart.Server.DataAccess.Repositories
             }
 
             IQueryable<ProductCategory> query = _dbSet;
+            query = query.ApplyTracking(queryObj);
+
             query = query.ApplyInclude(queryObj);
 
             return await query.SingleOrDefaultAsync(c => c.Id == productCategoryId);
@@ -107,6 +109,14 @@ namespace TinyShoppingCart.Server.DataAccess.Repositories
         public IEnumerable<ProductCategory> GetAll()
         {
             return _dbSet;
+        }
+
+        public IEnumerable<ProductCategory> PartialTreeList(Expression<Func<ProductCategory, bool>> predicate)
+        {
+            // Get a part of data from database to EF builds hierarchy structure partially.
+            IList<ProductCategory> partialData = _dbSet.Where(predicate).OrderBy(p => p.Id).ToList();
+
+            return partialData;
         }
 
         #region IDisposable Support

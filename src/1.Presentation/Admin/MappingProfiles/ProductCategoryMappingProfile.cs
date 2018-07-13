@@ -11,6 +11,7 @@ namespace TinyShoppingCart.Server.Presentation.Admin.MappingProfiles
         {
             CreateMap<ProductCategory, ViewProductCategoryViewModel>();
             CreateMap<EditProductCategoryViewModel, ProductCategory>();
+            CreateMap<ProductCategory, EditProductCategoryViewModel>();
         }
     }
 }

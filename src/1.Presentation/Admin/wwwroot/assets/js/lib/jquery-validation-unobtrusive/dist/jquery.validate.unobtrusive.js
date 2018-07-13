@@ -424,6 +424,7 @@
     });
 
     $(function () {
+        debugger
         $jQval.unobtrusive.parse(document);
     });
 

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TinyShoppingCart.Server.Presentation.Admin.ViewModels
@@ -9,5 +10,7 @@ namespace TinyShoppingCart.Server.Presentation.Admin.ViewModels
         public string Name {get;set;}
 
         public int? ParentId {get;set;}
+
+        public IEnumerable<ViewProductCategoryViewModel> FullCategories {get;set;}
     }
 }

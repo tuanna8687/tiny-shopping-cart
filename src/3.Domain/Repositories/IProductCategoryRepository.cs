@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TinyShoppingCart.Server.Domain.Entities;
 
@@ -16,5 +17,7 @@ namespace TinyShoppingCart.Server.Domain.Repositories
          void Delete(int productCategoryId);
 
          IEnumerable<ProductCategory> GetAll();
+
+         IEnumerable<ProductCategory> PartialTreeList(Expression<Func<ProductCategory, bool>> predicate);
     }
 }
