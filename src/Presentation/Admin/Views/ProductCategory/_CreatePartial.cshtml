@@ -1,0 +1,12 @@
+@model TinyShoppingCart.Presentation.Admin.ViewModels.EditProductCategoryViewModel
+
+
+<form asp-action="Create" asp-controller="ProductCategory" id="createForm">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control">
+    </div>
+    <input type="hidden" asp-for="ParentId">
+    
+    <button type="submit" class="btn btn-primary" id="createButton">Create</button>
+</form>
