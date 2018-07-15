@@ -10,7 +10,16 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Extensions
 {
     public static class IQueryableExtensions
     {
-        public static IQueryable<T> ApplyInclude<T>(this IQueryable<T> query, IQueryObject queryObj) where T: class
+        public static IQueryable<T> ApplyTrackingInclude<T>(this IQueryable<T> query, IQueryInclude queryObj) where T: class
+        {
+            query = ApplyTracking(query, queryObj);
+
+            query = ApplyInclude(query, queryObj);
+
+            return query;
+        }
+
+        public static IQueryable<T> ApplyInclude<T>(this IQueryable<T> query, IQueryInclude queryObj) where T: class
         {
             if(string.IsNullOrWhiteSpace(queryObj.IncludeProperties))
             {
@@ -25,36 +34,36 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Extensions
             return query;
         }
 
-        public static IQueryable<T> ApplyOrdering<T>(this IQueryable<T> query, IQueryObject queryObj, Dictionary<string, Expression<Func<T, object>>> columnsMap)
+        public static IQueryable<T> ApplyOrdering<T, TOrderProperty>(this IQueryable<T> query, IQueryOrder<T, TOrderProperty> queryObj)
         {
             if(queryObj == null)
             {
                 return query;
             }
 
-            if(!string.IsNullOrWhiteSpace(queryObj.OrderBy) && columnsMap.ContainsKey(queryObj.OrderBy.ToLower()))
+            if(queryObj.OrderBy == null)
             {
-                if(queryObj.IsOrderAscending)
-                {
-                    return query.OrderBy(columnsMap[queryObj.OrderBy.ToLower()]);
-                }
-
-                return query.OrderByDescending(columnsMap[queryObj.OrderBy.ToLower()]);
+                return query;
             }
 
-            return query;
+            if(queryObj.IsOrderAscending)
+            {
+                return query.OrderBy(queryObj.OrderBy);
+            }
+
+            return query.OrderByDescending(queryObj.OrderBy);
         }
 
-        public static IQueryable<T> ApplyPaging<T>(this IQueryable<T> query, IQueryObject queryObj)
+        public static IQueryable<T> ApplyPaging<T>(this IQueryable<T> query, IQueryPaging queryObj)
         {
             if(queryObj == null)
             {
                 return query;
             }
 
-            if(queryObj.Start < 0)
+            if(queryObj.PageIndex < 0)
             {
-                queryObj.Start = 0;
+                queryObj.PageIndex = 0;
             }
 
             if(queryObj.PageSize <= 0)
@@ -62,10 +71,10 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Extensions
                 queryObj.PageSize = 25;
             }
 
-            return query.Skip(queryObj.Start).Take(queryObj.PageSize);
+            return query.Skip(queryObj.PageIndex * queryObj.PageSize).Take(queryObj.PageSize);
         }
 
-        public static IQueryable<T> ApplyTracking<T>(this IQueryable<T> query, IQueryObject queryObj) where T: class
+        public static IQueryable<T> ApplyTracking<T>(this IQueryable<T> query, IQueryInclude queryObj) where T: class
         {
             if(queryObj.IsTracking)
             {
@@ -73,6 +82,16 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Extensions
             }
 
             return query.AsNoTracking<T>();
+        }
+
+        public static IQueryable<T> ApplyFilter<T>(this IQueryable<T> query, Expression<Func<T, bool>> predicate) where T: class
+        {
+            if(predicate == null)
+            {
+                return query;
+            }
+
+            return query.Where(predicate);
         }
     }
 }

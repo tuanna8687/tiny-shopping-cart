@@ -38,7 +38,7 @@ namespace TinyShoppingCart.Presentation.Admin.Controllers
                     if (disposing)
                     {
                         // TODO: dispose managed state (managed objects).
-                        _fakeRepository.Dispose();
+                        // _fakeRepository.Dispose();
                         _mockMapper = null;
                         //_underTestController.Dispose();
                     }

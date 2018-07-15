@@ -1,13 +1,9 @@
+using System;
+using System.Linq.Expressions;
+
 namespace TinyShoppingCart.Domain.Entities
 {
-    public interface IQueryObject
+    public interface IQueryObject<TEntity, TOrderProperty>: IQueryInclude, IQueryOrder<TEntity, TOrderProperty>, IQueryPaging
     {
-         string IncludeProperties {get;set;}
-         bool IsTracking {get;set;}
-         string Keyword {get;set;}
-         string OrderBy {get;set;}
-         bool IsOrderAscending {get;set;}
-         int Start {get;set;}
-         int PageSize {get;set;}
     }
 }

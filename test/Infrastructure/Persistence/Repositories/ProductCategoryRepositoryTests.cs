@@ -66,16 +66,14 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Repositories
             #endregion
         }
 
-        public class TheGetAsyncMethod : ProductCategoryRepositoryTestBase
+        public class TheGetByIdMethod : ProductCategoryRepositoryTestBase
         {
-            public TheGetAsyncMethod(ProductCategoryRepositoryFixture fixture) : base(fixture)
+            public TheGetByIdMethod(ProductCategoryRepositoryFixture fixture) : base(fixture)
             {
             }
 
-            [Fact]
-            public void GetProductCategoryById_WithoutIncludeProperties_Successfully()
+            private void CreateTestData()
             {
-                // Arrange
                 using(var context = new TinyShoppingCartDbContext(_options))
                 {
                     var dbSet = context.Set<ProductCategory>();
@@ -86,6 +84,13 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Repositories
                     context.Database.UseTransaction(_transaction);
                     context.SaveChanges();
                 }
+            }
+
+            [Fact]
+            public void GetProductCategoryById_QueryObjectIsNull_Success()
+            {
+                // Arrange
+                CreateTestData();
 
                 // Act
                 ProductCategory result;
@@ -93,7 +98,7 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Repositories
                 {
                     context.Database.UseTransaction(_transaction);
                     var repository = new ProductCategoryRepository(context);
-                    result = repository.GetAsync(3).Result;
+                    result = repository.GetById(3);
                 }
 
                 // Assert
@@ -104,19 +109,10 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Repositories
             }
 
             [Fact]
-            public void GetProductCategoryById_IncludeParentProperty_Successfully()
+            public void GetProductCategoryById_NoTracking_Success()
             {
                 // Arrange
-                using(var context = new TinyShoppingCartDbContext(_options))
-                {
-                    var dbSet = context.Set<ProductCategory>();
-                    dbSet.Add(new ProductCategory { Id = 1, Name = "Men"});
-                    dbSet.Add(new ProductCategory { Id = 2, Name = "Women"});
-                    dbSet.Add(new ProductCategory { Id = 3, Name = "Clothes", ParentId = 1});
-
-                    context.Database.UseTransaction(_transaction);
-                    context.SaveChanges();
-                }
+                CreateTestData();
 
                 // Act
                 ProductCategory result;
@@ -124,7 +120,65 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Repositories
                 {
                     context.Database.UseTransaction(_transaction);
                     var repository = new ProductCategoryRepository(context);
-                    result = repository.GetAsync(3, new QueryObject { IncludeProperties = "Parent" }).Result;
+
+                    IQueryInclude queryObj = new QueryInclude { IsTracking = false };
+                    result = repository.GetById(3, queryObj);
+                    result.Name = "Test";
+                    context.SaveChanges();
+                    
+                    result = repository.GetById(3, queryObj);
+                }
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.Equal<int>(3, result.Id);
+                Assert.True(result.Name == "Clothes");
+                Assert.Null(result.Parent);
+            }
+
+            [Fact]
+            public void GetProductCategoryById_HaveTracking_Success()
+            {
+                // Arrange
+                CreateTestData();
+
+                // Act
+                ProductCategory result;
+                using(var context = new TinyShoppingCartDbContext(_options))
+                {
+                    context.Database.UseTransaction(_transaction);
+                    var repository = new ProductCategoryRepository(context);
+
+                    IQueryInclude queryObj = new QueryInclude { IsTracking = true };
+                    result = repository.GetById(3, queryObj);
+                    result.Name = "Test";
+                    context.SaveChanges();
+                    
+                    result = repository.GetById(3, queryObj);
+                }
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.Equal<int>(3, result.Id);
+                Assert.True(result.Name == "Test");
+                Assert.Null(result.Parent);
+            }
+
+            [Fact]
+            public void GetProductCategoryById_IncludeParent_Success()
+            {
+                // Arrange
+                CreateTestData();
+
+                // Act
+                ProductCategory result;
+                using(var context = new TinyShoppingCartDbContext(_options))
+                {
+                    context.Database.UseTransaction(_transaction);
+                    var repository = new ProductCategoryRepository(context);
+
+                    IQueryInclude queryObj = new QueryInclude { IncludeProperties = "Parent" };
+                    result = repository.GetById(3, queryObj);
                 }
 
                 // Assert
@@ -132,45 +186,7 @@ namespace TinyShoppingCart.Infrastructure.Persistence.Repositories
                 Assert.Equal<int>(3, result.Id);
                 Assert.True(result.Name == "Clothes");
                 Assert.NotNull(result.Parent);
-                Assert.True(result.Parent.Name == "Men");
-            }
-        }
-
-        public class TheListAsyncMethod : ProductCategoryRepositoryTestBase
-        {
-            public TheListAsyncMethod(ProductCategoryRepositoryFixture fixture) : base(fixture)
-            {
-            }
-
-            [Fact]
-            public void ListAllProductCategories_QueryObjectIsNull_Successfully()
-            {
-                // Arrange
-                using(var context = new TinyShoppingCartDbContext(_options))
-                {
-                    var dbSet = context.Set<ProductCategory>();
-                    dbSet.Add(new ProductCategory { Id = 1, Name = "Men"});
-                    dbSet.Add(new ProductCategory { Id = 2, Name = "Women"});
-                    dbSet.Add(new ProductCategory { Id = 3, Name = "Clothes", ParentId = 1});
-
-                    context.Database.UseTransaction(_transaction);
-                    context.SaveChanges();
-                }
-
-                // Act
-                IQueryResult<ProductCategory> result;
-                using(var context = new TinyShoppingCartDbContext(_options))
-                {
-                    context.Database.UseTransaction(_transaction);
-                    var repository = new ProductCategoryRepository(context);
-                    result = repository.ListAsync().Result;
-                }
-
-                // Assert
-                Assert.NotNull(result);
-                Assert.Equal<int>(3, result.TotalItems);
-                var totalItems = new List<ProductCategory>(result.Items);
-                Assert.Equal<string>("Women", totalItems[1].Name);
+                Assert.Equal<string>("Men",result.Parent.Name);
             }
         }
 

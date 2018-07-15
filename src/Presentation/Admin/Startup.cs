@@ -17,6 +17,7 @@ using TinyShoppingCart.Infrastructure.Persistence.UnitOfWork;
 using TinyShoppingCart.Domain.Repositories;
 using TinyShoppingCart.Infrastructure.Persistence.Repositories;
 using DataTables.AspNet.AspNetCore;
+using TinyShoppingCart.Application.Services;
 
 namespace TinyShoppingCart.Presentation.Admin
 {
@@ -43,7 +44,7 @@ namespace TinyShoppingCart.Presentation.Admin
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddScoped<IProductCategoryAppService, ProductCategoryAppService>();
 
             services.AddAutoMapper();
 

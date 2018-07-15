@@ -10,23 +10,23 @@ namespace TinyShoppingCart.Presentation.Admin.FakeRepositories
 {
     public class FakeProductCategoryRepository : IProductCategoryRepository
     {
-        public Task<ProductCategory> GetAsync(int productCategoryId, IQueryObject queryObj = null)
-        {
-            throw new System.NotImplementedException();
-        }
+        // public Task<ProductCategory> GetAsync(int productCategoryId, IQueryObject queryObj = null)
+        // {
+        //     throw new System.NotImplementedException();
+        // }
 
-        public async Task<IQueryResult<ProductCategory>> ListAsync(IQueryObject queryObj = null)
-        {
-            var result = new QueryResult<ProductCategory>();
-            result.TotalItems = 3;
-            result.Items = new List<ProductCategory>() {
-                new ProductCategory() { Id = 1, Name = "Category 1" },
-                new ProductCategory() { Id = 2, Name = "Category 2"},
-                new ProductCategory() { Id = 3, Name = "Category 3"},
-            };
+        // public async Task<IQueryResult<ProductCategory>> ListAsync(IQueryObject queryObj = null)
+        // {
+        //     var result = new QueryResult<ProductCategory>();
+        //     result.TotalItems = 3;
+        //     result.Items = new List<ProductCategory>() {
+        //         new ProductCategory() { Id = 1, Name = "Category 1" },
+        //         new ProductCategory() { Id = 2, Name = "Category 2"},
+        //         new ProductCategory() { Id = 3, Name = "Category 3"},
+        //     };
 
-            return await Task.Run(() => result);
-        }
+        //     return await Task.Run(() => result);
+        // }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
@@ -88,6 +88,46 @@ namespace TinyShoppingCart.Presentation.Admin.FakeRepositories
         }
 
         public IEnumerable<ProductCategory> PartialTreeList(Expression<Func<ProductCategory, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProductCategory GetById(int id, IQueryInclude queryObj = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ProductCategory> GetAll(IQueryInclude queryObj = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ProductCategory> GetAll<TOrderProperty>(IQueryIncludeOrder<ProductCategory, TOrderProperty> queryObj = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ProductCategory> Get(Expression<Func<ProductCategory, bool>> predicate, IQueryInclude queryObj = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ProductCategory> Get<TOrderProperty>(Expression<Func<ProductCategory, bool>> predicate, IQueryIncludeOrder<ProductCategory, TOrderProperty> queryObj = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryResult<ProductCategory> GetPaged(Expression<Func<ProductCategory, bool>> predicate, IQueryPaging queryObj = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryResult<ProductCategory> GetPaged<TOrderProperty>(Expression<Func<ProductCategory, bool>> predicate, IQueryObject<ProductCategory, TOrderProperty> queryObj = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(ProductCategory entityToDelete)
         {
             throw new NotImplementedException();
         }

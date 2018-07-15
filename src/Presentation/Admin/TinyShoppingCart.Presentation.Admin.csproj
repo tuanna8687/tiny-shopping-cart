@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\TinyShoppingCart.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Application\TinyShoppingCart.Application.csproj" />
   </ItemGroup>
 
 </Project>

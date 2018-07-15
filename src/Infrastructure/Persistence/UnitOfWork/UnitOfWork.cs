@@ -1,25 +1,37 @@
 using System.Threading.Tasks;
+using TinyShoppingCart.Domain.Repositories;
 using TinyShoppingCart.Domain.UnitOfWork;
+using TinyShoppingCart.Infrastructure.Persistence.Repositories;
 
 namespace TinyShoppingCart.Infrastructure.Persistence.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly TinyShoppingCartDbContext _context;
+        private readonly TinyShoppingCartDbContext _dbContext;
 
-        public UnitOfWork(TinyShoppingCartDbContext context)
+        private IProductCategoryRepository _productCategoryRepository;
+
+        public UnitOfWork(TinyShoppingCartDbContext dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
-        public async Task CommitAsync()
+        public IProductCategoryRepository ProductCategoryRepository 
         {
-            await _context.SaveChangesAsync();
+            get 
+            {
+                if(_productCategoryRepository == null)
+                {
+                    _productCategoryRepository = new ProductCategoryRepository(_dbContext);
+                }
+
+                return _productCategoryRepository;
+            }
         }
 
         public void Commit()
         {
-            _context.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         #region IDisposable Support
@@ -32,7 +44,7 @@ namespace TinyShoppingCart.Infrastructure.Persistence.UnitOfWork
                 if (disposing)
                 {
                     // TODO: dispose managed state (managed objects).
-                    _context.Dispose();
+                    _dbContext.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

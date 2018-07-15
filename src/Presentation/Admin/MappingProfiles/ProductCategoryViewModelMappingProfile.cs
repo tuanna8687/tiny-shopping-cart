@@ -1,15 +1,15 @@
 using AutoMapper;
-
+using TinyShoppingCart.Application.DTOs;
 using TinyShoppingCart.Domain.Entities;
 using TinyShoppingCart.Presentation.Admin.ViewModels;
 
 namespace TinyShoppingCart.Presentation.Admin.MappingProfiles
 {
-    public class ProductCategoryMappingProfile : Profile
+    public class ProductCategoryViewModelMappingProfile : Profile
     {
-        public ProductCategoryMappingProfile()
+        public ProductCategoryViewModelMappingProfile()
         {
-            CreateMap<ProductCategory, ViewProductCategoryViewModel>();
+            CreateMap<ProductCategoryDTO, ViewProductCategoryViewModel>();
             CreateMap<EditProductCategoryViewModel, ProductCategory>();
             CreateMap<ProductCategory, EditProductCategoryViewModel>();
         }

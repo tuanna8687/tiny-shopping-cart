@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\TinyShoppingCart.Domain.csproj" />
+    <ProjectReference Include="..\..\Domain\TinyShoppingCart.Domain.csproj" />
   </ItemGroup>
 
 </Project>
