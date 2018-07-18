@@ -9,9 +9,10 @@ namespace TinyShoppingCart.Presentation.Admin.MappingProfiles
     {
         public ProductCategoryViewModelMappingProfile()
         {
-            CreateMap<ProductCategoryDTO, ViewProductCategoryViewModel>();
-            CreateMap<EditProductCategoryViewModel, ProductCategory>();
+            CreateMap<ProductCategoryDTO, ProductCategoryViewModel>();
+            CreateMap<EditProductCategoryViewModel, ProductCategoryDTO>();
             CreateMap<ProductCategory, EditProductCategoryViewModel>();
+            CreateMap<EditProductCategoryDTO, EditProductCategoryViewModel>();
         }
     }
 }

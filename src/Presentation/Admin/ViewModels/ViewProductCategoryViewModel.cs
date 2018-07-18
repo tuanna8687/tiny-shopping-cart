@@ -3,13 +3,9 @@ using Newtonsoft.Json;
 
 namespace TinyShoppingCart.Presentation.Admin.ViewModels
 {
-    public class ViewProductCategoryViewModel : AudViewModel
+    public class ViewProductCategoryViewModel
     {
-        [JsonProperty(nameof(Name))]
-        public string Name {get;set;}
-
-        public int? ParentId {get;set;}
-
-        public IEnumerable<ViewProductCategoryViewModel> Children {get;set;}
+        public IEnumerable<ProductCategoryViewModel> ProductCategories {get;set;}
+        public int? SelectedProductCategoryId {get;set;}
     }
 }

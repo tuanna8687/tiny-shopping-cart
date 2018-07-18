@@ -1,4 +1,181 @@
-@model IEnumerable<TinyShoppingCart.Presentation.Admin.ViewModels.ViewProductCategoryViewModel>
+@model TinyShoppingCart.Presentation.Admin.ViewModels.ViewProductCategoryViewModel
+
+<environment include="Development">
+    <script src="~/js/event-emitter.js"></script>
+</environment>
+<environment exclude="Development">
+    <script src="~/js/event-emitter.js" asp-append-version="true"></script>
+</environment>
+
+<script>
+    (function(global, $) {
+        "use strict";
+        // Private variables
+        var _eventEmitter = new global.tinyShoppingCart.EventEmitter();
+        var _contextMenuEvents = {
+            ADD: "add",
+            EDIT: "edit",
+            REMOVE: "remove"
+        };
+        var _elementIds = {
+            tree: "productCategoriesTree",
+            contextMenu: "divMenu",
+            selectedProductCategoryId: "SelectedProductCategoryId"
+        };
+
+        ////////////////////////////////////////////////////////////
+        // Tree
+        ////////////////////////////////////////////////////////////
+        function _registerInitializedEventHandlerForTree($productCategoryTree) {
+            $productCategoryTree.on('initialized', function (event) {
+                // Auto select a element
+                var selectedId = $("#" + _elementIds.selectedProductCategoryId).val();
+                global.tinyShoppingCart.utilities.jqxTree.setSelectedElementByValue($(this), selectedId);
+
+                // Init context menu
+                var $contextMenu = $("#" + _elementIds.contextMenu);
+                _initContextMenu($productCategoryTree, $contextMenu);
+            });
+        }
+
+        ////////////////////////////////////////////////////////////
+        // Context menu
+        ////////////////////////////////////////////////////////////
+        function _attachContextMenu($productCategoryTree, $contextMenu) {
+            // open the context menu when the user presses the mouse right button.
+            $productCategoryTree.find("li").on('mousedown', function (event) {
+                var target = $(event.target).parents('li:first')[0];
+                var rightClick = _isRightClick(event);
+                if (rightClick && target != null) {
+                    $productCategoryTree.jqxTree('selectItem', target);
+                    var scrollTop = $(window).scrollTop();
+                    var scrollLeft = $(window).scrollLeft();
+                    $contextMenu.jqxMenu('open', parseInt(event.clientX) + 5 + scrollLeft, parseInt(event.clientY) + 5 + scrollTop);
+                    return false;
+                }
+            });
+        }
+
+        function _isRightClick(event) {
+            var rightclick;
+            if (!event) var event = window.event;
+            if (event.which) rightclick = (event.which == 3);
+            else if (event.button) rightclick = (event.button == 2);
+            return rightclick;
+        }
+
+        function _registerItemClickEventHandlerForContextMenu($productCategoryTree, $contextMenu) {
+
+            $contextMenu.on('itemclick', function (event) {
+                var eventArgs = {
+                    selectedItemOnTree: global.tinyShoppingCart.utilities.jqxTree.getSelectedItem($productCategoryTree),
+                    getUrl: $(event.args).data('get-data-url'),
+                    updateUrl: $(event.args).data('update-data-url'),
+                };
+                var action = $(event.args).data('action');
+                switch (action) {
+                    case "Add":
+                        _eventEmitter.emit(_contextMenuEvents.ADD, eventArgs);
+                        break;
+
+                    case "Edit":
+                        _eventEmitter.emit(_contextMenuEvents.EDIT, eventArgs);
+                        break;
+
+                    case "Remove":
+                        _eventEmitter.emit(_contextMenuEvents.REMOVE, eventArgs);
+                        break;
+                }
+            });
+        }
+
+        function _disableDefaultBrowserContextMenu() {
+            $(document).on('contextmenu', function (e) {
+                if ($(e.target).parents('.jqx-tree').length > 0) {
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        function _initContextMenu($productCategoryTree, $contextMenu) {
+            // Create context menu
+            $contextMenu.jqxMenu({ width: '150px',  height: '84px', autoOpenPopup: false, mode: 'popup' });
+
+            // Attach context menu to tree view.
+            _attachContextMenu($productCategoryTree, $contextMenu);
+
+            // Register click event handler for the context menu
+            _registerItemClickEventHandlerForContextMenu($productCategoryTree, $contextMenu);
+
+            // Disable the default browser's context menu
+            _disableDefaultBrowserContextMenu();
+        }
+
+        // Expose the module to global
+        global.tinyShoppingCart = global.tinyShoppingCart || {};
+
+        global.tinyShoppingCart.viewProductCategory = {
+            reattachContextMenuForTree: function() {
+                var $productCategoryTree = $("#" + _elementIds.tree);
+                var $contextMenu = $("#" + _elementIds.contextMenu);
+
+                _attachContextMenu($productCategoryTree, $contextMenu);
+            },
+
+            registerAddEventHandlerForContextMenu: function(handler) {
+                _eventEmitter.on(_contextMenuEvents.ADD, handler);
+            },
+
+            registerEditEventHandlerForContextMenu: function(handler) {
+                _eventEmitter.on(_contextMenuEvents.EDIT, handler);
+            },
+
+            registerRemoveEventHandlerForContextMenu: function(handler) {
+                _eventEmitter.on(_contextMenuEvents.REMOVE, handler);
+            },
+
+            removeSelectedElement: function() {
+                var $productCategoryTree = $("#" + _elementIds.tree);
+                var $contextMenu = $("#" + _elementIds.contextMenu);
+
+                var selectedElement = global.tinyShoppingCart.utilities.jqxTree.getSelectedItem($productCategoryTree);
+                if(selectedElement) {
+                    $productCategoryTree.jqxTree('removeItem', selectedElement.element);
+                    _attachContextMenu($productCategoryTree, $contextMenu);
+                }
+            }
+        };
+
+
+        // Document ready event handler
+        $(document).ready(function() {
+            var $productCategoryTree = $("#" + _elementIds.tree);
+            _registerInitializedEventHandlerForTree($productCategoryTree);
+        });
+
+    })(window, jQuery);
+
+</script>
 
 <!-- Tree view-->
-<jqx-tree id="tree" width="100%" itemsMember="Children" displayMember="Name" valueMember="Id" source="Model"></jqx-tree>
+<jqx-tree id="productCategoriesTree" width="100%" 
+        itemsMember="Children" displayMember="Name" 
+        valueMember="Id" source="Model.ProductCategories" theme="@ViewBag.Theme">
+</jqx-tree>
+<input type="hidden" asp-for="SelectedProductCategoryId">
+
+<!-- Context menu-->
+<div id='divMenu'>
+    <ul>
+        <li id="addCategoryMenu" data-action="Add" 
+            data-get-data-url='@Url.Action("Create", "ProductCategory")'
+            data-update-data-url='@Url.Action("CreateData", "ProductCategory")'>Add Category</li>
+
+        <li id="editCategoryMenu" data-action="Edit" 
+            data-get-data-url='@Url.Action("Update", "ProductCategory")'
+            data-update-data-url='@Url.Action("UpdateData", "ProductCategory")'>Edit Category</li>
+        <li id="removeCategoryMenu" data-action="Remove" 
+            data-update-data-url='@Url.Action("Delete", "ProductCategory")'>Remove Category</li>
+    </ul>
+</div>

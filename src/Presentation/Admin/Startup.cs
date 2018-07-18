@@ -18,6 +18,8 @@ using TinyShoppingCart.Domain.Repositories;
 using TinyShoppingCart.Infrastructure.Persistence.Repositories;
 using DataTables.AspNet.AspNetCore;
 using TinyShoppingCart.Application.Services;
+using TinyShoppingCart.Presentation.Admin.Settings;
+using TinyShoppingCart.Presentation.Admin.Filters.ActionFilters;
 
 namespace TinyShoppingCart.Presentation.Admin
 {
@@ -51,6 +53,10 @@ namespace TinyShoppingCart.Presentation.Admin
             services.AddMvc();
 
             services.RegisterDataTables();
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            services.AddScoped<ThemeActionFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,102 @@
+{
+  "_args": [
+    [
+      {
+        "name": "jquery-validation-unobtrusive",
+        "raw": "jquery-validation-unobtrusive@^3.2.10",
+        "rawSpec": "^3.2.10",
+        "scope": null,
+        "spec": ">=3.2.10 <4.0.0",
+        "type": "range"
+      },
+      "/Users/TuanNA/MyWorking/07.KPI/TinyShoppingCart/src/Presentation/Admin"
+    ]
+  ],
+  "_from": "jquery-validation-unobtrusive@>=3.2.10 <4.0.0",
+  "_id": "jquery-validation-unobtrusive@3.2.10",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/jquery-validation-unobtrusive",
+  "_nodeVersion": "8.11.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/jquery-validation-unobtrusive_3.2.10_1527008031489_0.55525237243747"
+  },
+  "_npmUser": {
+    "email": "npmaspnet@microsoft.com",
+    "name": "npmaspnet"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "jquery-validation-unobtrusive",
+    "raw": "jquery-validation-unobtrusive@^3.2.10",
+    "rawSpec": "^3.2.10",
+    "scope": null,
+    "spec": ">=3.2.10 <4.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery-validation-unobtrusive/-/jquery-validation-unobtrusive-3.2.10.tgz",
+  "_shasum": "5ed7096c10d917c272ce71055b90ca67c27c219c",
+  "_shrinkwrap": null,
+  "_spec": "jquery-validation-unobtrusive@^3.2.10",
+  "_where": "/Users/TuanNA/MyWorking/07.KPI/TinyShoppingCart/src/Presentation/Admin",
+  "author": {
+    "name": "Microsoft"
+  },
+  "bugs": {
+    "url": "https://github.com/aspnet/jquery-validation-unobtrusive/issues"
+  },
+  "dependencies": {
+    "jquery": ">=1.8",
+    "jquery-validation": ">=1.16"
+  },
+  "description": "Add-on to jQuery Validation to enable unobtrusive validation options in data-* attributes.",
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-line-ending-corrector": "1.0.1",
+    "gulp-rename": "1.2.2",
+    "gulp-replace": "0.5.4",
+    "gulp-uglify": "2.0.0"
+  },
+  "directories": {},
+  "dist": {
+    "fileCount": 5,
+    "integrity": "sha512-z9ZBP/HslaGNKzFSpfLNJoFm2iqPJfE6CKM0H5e9LmKnYTFxErvCFQZomOLiTmLmZi8Wi/otW38cEXExVDha0w==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbBEsfCRA9TVsSAnZWagAAqFEP/0ttqD84nT4yq0FqGaha\njhWgRUqsbzcypAwO3JKa+jPFmxLekjr3pe9U5GEc/CgsSM5ooSx6QDtuyT4/\nwKsllGf4H3Vrrdpwy//Bo1upoOxDrVgX23knDYjRcgPOmIIxUPhW0SlRjdff\nYFSJTJBipZv6ukjL6KR3AIkhTq0/bqE3uv+GPrEgHKtKsnsgPN+AzmoyM5Hv\nqjcbahcN2vzZ9soct7Wncf8WJTN2tnJR7psDmLhC3gfd00O2CWlDcrTcN4M/\nsj+YVXxdRVMbOjRTRGkl43ipDuQFPGofIL1tlYJlGZtvEi/oKkQlXtLQgU9J\nEA7PX+LCFPsg4dEY05769zXEsg1ZFRp2OwHYOxxX2RpOB+TmluREtSbpGyh0\nPpwqoZ9Gdl3C+7ShBVVsH2Pce5r9aSDoENwywcqqwB6ueNTqB6NOPIFBVuWU\n0lJQ5QC3zFHn42l9qInA7aC6IAx3vOXf+622k5r4FwmamCJBlpI8BnavMbrS\nB6OPyB7AVmFkmOIVnQSR3YiUoXdg/3T9iNW56bqqW/8D2uZEDr7tYae0FlIa\ns8mv5e29UewkZjYYnPl93NXbVQfsnyFH9tgizXZKRuqFpN1D1solDaUF+oTQ\nX+OfzlZWJm7etBoNsNjUBVcw7y7885ND5Qys5ePJaus6tyaEcpPnNiw/0eXA\nMszO\r\n=6Gpg\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "5ed7096c10d917c272ce71055b90ca67c27c219c",
+    "tarball": "https://registry.npmjs.org/jquery-validation-unobtrusive/-/jquery-validation-unobtrusive-3.2.10.tgz",
+    "unpackedSize": 28075
+  },
+  "files": [
+    "dist/jquery.validate.unobtrusive.js",
+    "dist/jquery.validate.unobtrusive.min.js"
+  ],
+  "homepage": "https://github.com/aspnet/jquery-validation-unobtrusive",
+  "keywords": [
+    "jquery",
+    "asp.net",
+    "mvc",
+    "validation",
+    "unobtrusive"
+  ],
+  "license": "https://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm",
+  "main": "dist/jquery.validate.unobtrusive.js",
+  "maintainers": [
+    {
+      "email": "npmaspnet@microsoft.com",
+      "name": "npmaspnet"
+    }
+  ],
+  "name": "jquery-validation-unobtrusive",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aspnet/jquery-validation-unobtrusive.git"
+  },
+  "version": "3.2.10"
+}

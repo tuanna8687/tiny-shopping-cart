@@ -9,19 +9,45 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
-    <title>Ela - Bootstrap Admin Dashboard Template</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="~/assets/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <!-- jquery-widgets -->
-    <link rel="stylesheet" href="~/assets/css/lib/jqwidgets/styles/jqx.base.css" type="text/css" />
-    <link rel="stylesheet" href="~/assets/css/lib/jqwidgets/styles/jqx.darkblue.css" type="text/css" />
-    <!-- Custom CSS -->
-    <link href="~/assets/css/helper.css" rel="stylesheet">
-    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon.png">
+    <title>Tiny Shopping Cart</title>
 
-    <!-- All Jquery -->
-    <script src="~/assets/js/lib/jquery/jquery.js"></script>
+    <environment include="Development">
+        <!-- Bootstrap Core CSS -->
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <!-- jquery-widgets -->
+        <link rel="stylesheet" href="~/lib/jqwidgets/styles/jqx.base.css" type="text/css" />
+        <link rel="stylesheet" href="~/lib/jqwidgets/styles/jqx.flat.css" type="text/css" />
+        <!-- Custom CSS -->
+        <link href="~/css/helper.css" rel="stylesheet">
+        <link href="~/css/style.css" rel="stylesheet">
+
+        <!-- All Jquery -->
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" 
+              integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" 
+              crossorigin="anonymous"/>
+        <!-- jquery-widgets -->
+        <link rel="stylesheet" href="~/lib/jqwidgets/styles/jqx.base.css" type="text/css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/lib/jqwidgets/styles/jqx.flat.css" type="text/css" asp-append-version="true"/>
+        <!-- Custom CSS -->
+        <link href="~/css/helper.css" rel="stylesheet" asp-append-version="true">
+        <link href="~/css/style.css" rel="stylesheet" asp-append-version="true">
+
+        <!-- All Jquery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" 
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
+            crossorigin="anonymous">
+        </script>
+    </environment>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -45,10 +71,10 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
-                        <b><img src="~/assets/images/logo.png" alt="homepage" class="dark-logo" /></b>
+                        <b><img src="~/images/logo.png" alt="homepage" class="dark-logo" /></b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span><img src="~/assets/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                        <span><img src="~/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -187,28 +213,28 @@
                                         <div class="message-center">
                                             <!-- Message -->
                                             <a href="#">
-                                                <div class="user-img"> <img src="~/assets/images/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                                <div class="user-img"> <img src="~/images/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
                                                 <div class="mail-contnet">
                                                     <h5>Michael Qin</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
-                                                <div class="user-img"> <img src="~/assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
+                                                <div class="user-img"> <img src="~/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
                                                 <div class="mail-contnet">
                                                     <h5>John Doe</h5> <span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
-                                                <div class="user-img"> <img src="~/assets/images/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
+                                                <div class="user-img"> <img src="~/images/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
                                                 <div class="mail-contnet">
                                                     <h5>Mr. John</h5> <span class="mail-desc">I am a singer!</span> <span class="time">9:08 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
-                                                <div class="user-img"> <img src="~/assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
+                                                <div class="user-img"> <img src="~/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
                                                 <div class="mail-contnet">
                                                     <h5>Michael Qin</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
                                                 </div>
@@ -224,7 +250,7 @@
                         <!-- End Messages -->
                         <!-- Profile -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/assets/images/users/5.jpg" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/images/users/5.jpg" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
                                     <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -403,26 +429,49 @@
         <!-- End Page wrapper  -->
     </div>
     <!-- End Wrapper -->
-    <!-- All Jquery -->
-    <!-- <script src="~/assets/js/lib/jquery/jquery.min.js"></script> -->
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="~/assets/js/lib/bootstrap/js/popper.min.js"></script>
-    <script src="~/assets/js/lib/bootstrap/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="~/assets/js/jquery.slimscroll.js"></script>
-    <!--Menu sidebar -->
-    <script src="~/assets/js/sidebarmenu.js"></script>
-    <!--stickey kit -->
-    <script src="~/assets/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-     <!--jquery-widgets -->
-    <script type="text/javascript" src="~/assets/js/lib/jqwidgets/jqxcore1.js"></script>
-    <script type="text/javascript" src="~/assets/js/lib/jqwidgets/jqxdata.js"></script>
-    <!-- <script type="text/javascript" src="~/assets/js/lib/jqwidgets/jqxdraw.js"></script> -->
+    <environment include="Development">
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="~/js/jquery.slimscroll.js"></script>
+        <!--Menu sidebar -->
+        <script src="~/js/sidebarmenu.js"></script>
+        <!--stickey kit -->
+        <script src="~/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+        <!--jquery-widgets -->
+        <script type="text/javascript" src="~/lib/jqwidgets/jqxcore.js"></script>
+        <script type="text/javascript" src="~/lib/jqwidgets/jqxdata.js"></script>
+
+        <!--Custom JavaScript -->
+        <script src="~/js/custom.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+            crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" 
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" 
+            crossorigin="anonymous">
+        </script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="~/js/jquery.slimscroll.js" asp-append-version="true"></script>
+        <!--Menu sidebar -->
+        <script src="~/js/sidebarmenu.js" asp-append-version="true"></script>
+        <!--stickey kit -->
+        <script src="~/lib/sticky-kit-master/dist/sticky-kit.min.js" asp-append-version="true"></script>
+        <!--jquery-widgets -->
+        <script type="text/javascript" src="~/lib/jqwidgets/jqxcore.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/lib/jqwidgets/jqxdata.js" asp-append-version="true"></script>
+
+        <!--Custom JavaScript -->
+        <script src="~/js/custom.min.js" asp-append-version="true"></script>
+    </environment>
 
     @RenderSection("scripts", required: false)
-
-    <!--Custom JavaScript -->
-    <script src="~/assets/js/custom.min.js"></script>
 </body>
 
 </html>

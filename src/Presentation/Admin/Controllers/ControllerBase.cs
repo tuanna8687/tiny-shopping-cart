@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace TinyShoppingCart.Presentation.Admin.Controllers
 {
-    public class ControllerBase : Controller
-    {
-        
+    public abstract class ControllerBase : Controller
+    {      
     }
 }

@@ -1,0 +1,86 @@
+@model TinyShoppingCart.Presentation.Admin.ViewModels.EditProductCategoryViewModel
+
+<script>
+    (function(global, $) {
+        'use strict';
+        ////////////////////////////////////////////////////////////////
+        // Configuration
+        ////////////////////////////////////////////////////////////////
+
+        var elementIds = {
+            dropDownButton: "dropDownButton",
+            parentTree: "parentTree",
+            editingForm: "editingForm",
+            parentIdField: "ParentId"
+        };
+
+        ////////////////////////////////////////////////////////////////
+        // Tree
+        ////////////////////////////////////////////////////////////////
+        function _registerSelectEventHandlerForTree($parentTree, $dropDownButton, $parentId) {
+            $parentTree.on('select', function (event) {
+                var args = event.args;
+                var item = $(this).jqxTree('getItem', args.element);
+                var dropDownContent = '<div style="position: relative; margin-left: 3px; margin-top: 5px;">' + item.label + '</div>';
+                $dropDownButton.jqxDropDownButton('setContent', dropDownContent);
+                $dropDownButton.jqxDropDownButton('close');
+                $parentId.val(item.value);
+            });
+        }
+
+        function _registerInitializedEventHandlerForTree($parentTree, $parentId) {
+            $parentTree.on('initialized', function (event) {
+                var parentId = $parentId.val();
+                if(!parentId)
+                {
+                    parentId = 0;
+                }
+                global.tinyShoppingCart.utilities.jqxTree.setSelectedElementByValue($(this), parentId);
+            });
+        }
+
+        $(document).ready(function() {
+            var $parentTree = $("#" + elementIds.parentTree);
+            var $dropDownButton = $("#" + elementIds.dropDownButton);
+            var $parentId = $("#" + elementIds.editingForm + " > #" + elementIds.parentIdField);
+
+            $dropDownButton.jqxDropDownButton({ width: 250, height: 30, theme: "@ViewBag.Theme"});
+
+            _registerInitializedEventHandlerForTree($parentTree, $parentId);
+            _registerSelectEventHandlerForTree($parentTree, $dropDownButton, $parentId);
+        });
+    })(window, jQuery);
+</script>
+
+<form asp-action="UpdateData" asp-controller="ProductCategory" id="editingForm">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="invalid-feedback"></span>
+    </div>
+
+    <input type="hidden" asp-for="Id">
+    <input type="hidden" asp-for="ParentId">
+
+    <div class="form-group">
+        <label for="dropDownButton">Parent</label>
+        <div id="dropDownButton">
+            <jqx-tree style="border: none;" id="parentTree" 
+                itemsMember="Children" displayMember="Name" 
+                valueMember="Id" source="Model.ParentCategories"
+                width="250" height="200" theme="@ViewBag.Theme">
+            </jqx-tree>
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary" id="updateButton">
+        @if(Model.Id <= 0)
+        {
+            <text>Create</text>
+        }
+        else
+        {
+            <text>Update</text>
+        }
+    </button>
+</form>

@@ -11,6 +11,6 @@ namespace TinyShoppingCart.Presentation.Admin.ViewModels
 
         public int? ParentId {get;set;}
 
-        public IEnumerable<ViewProductCategoryViewModel> FullCategories {get;set;}
+        public IEnumerable<ProductCategoryViewModel> ParentCategories {get;set;}
     }
 }

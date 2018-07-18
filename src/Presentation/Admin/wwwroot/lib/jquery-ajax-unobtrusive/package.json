@@ -1,0 +1,93 @@
+{
+  "_args": [
+    [
+      {
+        "name": "jquery-ajax-unobtrusive",
+        "raw": "jquery-ajax-unobtrusive@^3.2.4",
+        "rawSpec": "^3.2.4",
+        "scope": null,
+        "spec": ">=3.2.4 <4.0.0",
+        "type": "range"
+      },
+      "/Users/TuanNA/MyWorking/07.KPI/TinyShoppingCart/src/Presentation/Admin"
+    ]
+  ],
+  "_from": "jquery-ajax-unobtrusive@>=3.2.4 <4.0.0",
+  "_id": "jquery-ajax-unobtrusive@3.2.4",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/jquery-ajax-unobtrusive",
+  "_nodeVersion": "4.2.1",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/jquery-ajax-unobtrusive-3.2.4.tgz_1457275184547_0.6152849022764713"
+  },
+  "_npmUser": {
+    "email": "kiranchalla@hotmail.com",
+    "name": "kichalla"
+  },
+  "_npmVersion": "2.14.7",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "jquery-ajax-unobtrusive",
+    "raw": "jquery-ajax-unobtrusive@^3.2.4",
+    "rawSpec": "^3.2.4",
+    "scope": null,
+    "spec": ">=3.2.4 <4.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery-ajax-unobtrusive/-/jquery-ajax-unobtrusive-3.2.4.tgz",
+  "_shasum": "dd8f9ca6aad51f74eddcab82bbc003d2a0e1180e",
+  "_shrinkwrap": null,
+  "_spec": "jquery-ajax-unobtrusive@^3.2.4",
+  "_where": "/Users/TuanNA/MyWorking/07.KPI/TinyShoppingCart/src/Presentation/Admin",
+  "author": {
+    "name": "Microsoft"
+  },
+  "bugs": {
+    "url": "https://github.com/aspnet/jquery-ajax-unobtrusive/issues"
+  },
+  "dependencies": {
+    "jquery": ">=1.8"
+  },
+  "description": "Add-on to jQuery Ajax to enable unobtrusive options in data-* attributes",
+  "devDependencies": {
+    "gulp": "3.8.11",
+    "gulp-rename": "1.2.2",
+    "gulp-uglify": "1.2.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "dd8f9ca6aad51f74eddcab82bbc003d2a0e1180e",
+    "tarball": "https://registry.npmjs.org/jquery-ajax-unobtrusive/-/jquery-ajax-unobtrusive-3.2.4.tgz"
+  },
+  "gitHead": "0193de3f75f73b84719bb2c243372f3bc5693462",
+  "homepage": "https://github.com/aspnet/jquery-ajax-unobtrusive",
+  "keywords": [
+    "unobtrusive",
+    "ajax",
+    "mvc",
+    "asp.net",
+    "jquery"
+  ],
+  "license": "https://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm",
+  "main": "jquery.unobtrusive-ajax.js",
+  "maintainers": [
+    {
+      "email": "kiranchalla@hotmail.com",
+      "name": "kichalla"
+    }
+  ],
+  "name": "jquery-ajax-unobtrusive",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aspnet/jquery-ajax-unobtrusive.git"
+  },
+  "scripts": {},
+  "version": "3.2.4"
+}
