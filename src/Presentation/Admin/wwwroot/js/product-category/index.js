@@ -11,7 +11,9 @@
             contextMenu: "divMenu",
             searchText: "searchText",
             searchButton: "searchButton",
-            expandCollapseAllButton: "expandCollapseAllButton"
+            expandCollapseAllButton: "expandCollapseAllButton",
+            createCategoryButton: "createCategoryButton",
+            divNoData: "divNoData"
         },
 
         creatingWindow: {
@@ -30,26 +32,27 @@
     //////////////////////////////////////////////////////////////////
     // Creating Windows
     //////////////////////////////////////////////////////////////////
-    function _registerEventHandlersForContextMenu() {
+    function _registerEventHandlersForTreeAndContextMenu() {
         var viewProductCategory = global.tinyShoppingCart.viewProductCategory;
 
         viewProductCategory.registerAddEventHandlerForContextMenu(_openCreatingWindow);
         viewProductCategory.registerEditEventHandlerForContextMenu(_openEditingWindow);
         viewProductCategory.registerRemoveEventHandlerForContextMenu(_removeCategory);
+        viewProductCategory.registerInitializedEventHandlerForTree(_toggleDivNoData);
     }
 
     function _openCreatingWindow(eventArgs) {
         var selectedItem = eventArgs.selectedItemOnTree;
         var getCreatingFormUrl = eventArgs.getUrl;
 
-        if (selectedItem && getCreatingFormUrl) {
+        if (getCreatingFormUrl) {
 
             // Send a AJAX request to server to get content of creating windows
             $.ajax({
                 url: getCreatingFormUrl,
                 method: 'POST',
                 data: {
-                    parentId: selectedItem.value
+                    parentId: selectedItem ? selectedItem.value : null
                 }
             }).then(function(data) {
                 var $creatingWindow = $("#" + _elementIds.creatingWindow.id);
@@ -79,7 +82,7 @@
 
                 // Reload product category tree
                 $("#" + _elementIds.mainForm.productCategoriesTreeContainer).html(data);
-                _registerEventHandlersForContextMenu();
+                _registerEventHandlersForTreeAndContextMenu();
             });
 
             return false;
@@ -139,7 +142,7 @@
 
                 // Reload product category tree
                 $("#" + _elementIds.mainForm.productCategoriesTreeContainer).html(data);
-                _registerEventHandlersForContextMenu();
+                _registerEventHandlersForTreeAndContextMenu();
             });
 
             return false;
@@ -163,6 +166,7 @@
                 } 
             }).done(function() {
                 global.tinyShoppingCart.viewProductCategory.removeSelectedElement();
+                _toggleDivNoData();
             });
         }
     }
@@ -207,10 +211,41 @@
         }
     }
 
+    function _registerClickEventHandlerForCreateCategoryButton($button) {
+        $button.off("click");
+        $button.on("click", function() {
+            var $productCategoriesTree = $("#" + _elementIds.mainForm.productCategoriesTree);
+            var selectedElement = global.tinyShoppingCart.utilities.jqxTree.getSelectedItem($productCategoriesTree);
 
+            var eventArgs = {
+                selectedItemOnTree: selectedElement,
+                getUrl: $(this).data("get-data-url"),
+                updateUrl: $(this).data("update-data-url")
+            };
+
+            _openCreatingWindow(eventArgs);
+        });
+    }
+
+    function _toggleDivNoData() {
+        var $productCategoriesTree = $("#" + _elementIds.mainForm.productCategoriesTree);
+        var isEmpty = global.tinyShoppingCart.utilities.jqxTree.isEmptyTree($productCategoriesTree);
+
+        var $divNoData = $("#" + _elementIds.mainForm.divNoData);
+        var $productCategoriesTreeContainer = $("#" + _elementIds.mainForm.productCategoriesTreeContainer);
+        if(isEmpty) {
+            $divNoData.show();
+            $productCategoriesTreeContainer.hide();
+        }
+        else {
+            $divNoData.hide();
+            $productCategoriesTreeContainer.show();
+        }
+
+    }
 
     $(document).ready(function() {
-        _registerEventHandlersForContextMenu();
+        _registerEventHandlersForTreeAndContextMenu();
         
         var $creatingWindow = $("#" + _elementIds.creatingWindow.id);
         var $editingWindow = $("#" + _elementIds.editingWindow.id);
@@ -225,6 +260,11 @@
 
         var $expandCollapseAllButton = $("#" + _elementIds.mainForm.expandCollapseAllButton);
         _registerClickEventHandlerForExpandCollapseAllButton($expandCollapseAllButton);
+
+        var $createCategoryButton = $("#" + _elementIds.mainForm.createCategoryButton);
+        _registerClickEventHandlerForCreateCategoryButton($createCategoryButton);
+
+        _toggleDivNoData();
     });
 
 })(window, jQuery);

@@ -6,11 +6,18 @@
     </div>
 
     <button type="button" id="searchButton" class="btn btn-primary ml-sm-3">Search</button>
-    <button type="button" id="expandCollapseAllButton" class="btn btn-primary ml-sm-3">Expand All</button>
+    <button type="button" id="expandCollapseAllButton" class="btn btn-primary mx-sm-3">Expand All</button>
+    <button type="button" id="createCategoryButton" class="btn btn-primary"
+        data-get-data-url='@Url.Action("Create", "ProductCategory")'
+        data-update-data-url='@Url.Action("CreateData", "ProductCategory")'>Create Category</button>
 </div>
 
 <div class="row">
     <div class="col-12">
+        <div id="divNoData">
+            No Data.
+        </div>
+
         <!-- Tree view-->
         <div id="divTree">
             @await Html.PartialAsync("_TreePartial", Model)
