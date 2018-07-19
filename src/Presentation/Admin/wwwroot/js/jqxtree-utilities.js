@@ -50,6 +50,17 @@
             }
 
             return false;
+        },
+
+        isEmptyTree: function($jqxTree) {
+            var count = 0;
+            var elements = $jqxTree.jqxTree("getItems");
+            if(elements.length == 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     };
 
