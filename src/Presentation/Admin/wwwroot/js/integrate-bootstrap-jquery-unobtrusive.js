@@ -29,4 +29,3 @@
         validClass: defaultOptions.validClass,
     };
 })(jQuery);
-console.log("integrate-bootstrap-jquery-unobtrusive.js")

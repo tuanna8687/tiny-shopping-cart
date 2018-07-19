@@ -7,7 +7,11 @@
     var _elementIds = {
         mainForm: {
             productCategoriesTreeContainer: "divTree",
+            productCategoriesTree: "productCategoriesTree",
             contextMenu: "divMenu",
+            searchText: "searchText",
+            searchButton: "searchButton",
+            expandCollapseAllButton: "expandCollapseAllButton"
         },
 
         creatingWindow: {
@@ -20,6 +24,7 @@
             editingForm: "editingForm",
         },
     };
+    var _isTreeCollapsed = true;
 
 
     //////////////////////////////////////////////////////////////////
@@ -83,7 +88,8 @@
 
     function _registerCloseEventHandlerForWindow($window)
     {
-        $window.on('close', function(event) {
+        $window.off("close")
+        $window.on("close", function(event) {
             $(this).jqxWindow({ content: ''});
         });
     }
@@ -161,6 +167,48 @@
         }
     }
 
+    function _registerClickEventHandlerForSearchButton($searchButton, $searchText) {
+        $searchButton.off("click");
+        $searchButton.on("click", function() {
+            var searchText = $.trim($searchText.val());
+            if(searchText) {
+                var $jqxTree = $("#" + _elementIds.mainForm.productCategoriesTree);
+                var result = global.tinyShoppingCart.utilities.jqxTree.setFirstSelectedElementByText($jqxTree, searchText);
+                if(!result) {
+                    alert("Don't have any categories matches with '" + searchText + "'");
+                }
+            }
+        });
+    }
+
+    function _registerClickEventHandlerForExpandCollapseAllButton($button) {
+        _refreshTextOfExpandCollapseButton($button);
+
+        $button.off("click");
+        $button.on("click", function() {
+            var $jqxTree = $("#" + _elementIds.mainForm.productCategoriesTree);
+
+            if(_isTreeCollapsed) {
+                $jqxTree.jqxTree("expandAll");
+            } else {
+                $jqxTree.jqxTree("collapseAll");
+            }
+
+            _isTreeCollapsed = !_isTreeCollapsed;
+            _refreshTextOfExpandCollapseButton($button);
+        });
+    }
+
+    function _refreshTextOfExpandCollapseButton($button) {
+        if(_isTreeCollapsed) {
+            $button.text("Expand All");
+        } else {
+            $button.text("Collapse All");
+        }
+    }
+
+
+
     $(document).ready(function() {
         _registerEventHandlersForContextMenu();
         
@@ -169,6 +217,14 @@
 
         _registerCloseEventHandlerForWindow($creatingWindow);
         _registerCloseEventHandlerForWindow($editingWindow);
+
+        var $searchButton = $("#" + _elementIds.mainForm.searchButton);
+        var $searchText = $("#" + _elementIds.mainForm.searchText);
+
+        _registerClickEventHandlerForSearchButton($searchButton, $searchText);
+
+        var $expandCollapseAllButton = $("#" + _elementIds.mainForm.expandCollapseAllButton);
+        _registerClickEventHandlerForExpandCollapseAllButton($expandCollapseAllButton);
     });
 
 })(window, jQuery);
