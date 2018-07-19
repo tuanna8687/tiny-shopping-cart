@@ -34,10 +34,10 @@ namespace TinyShoppingCart.Presentation.Admin.Controllers
 
         public IActionResult Index()
         {
-            var productCategiesDto = _appService.GetFullTree();
+            var productCategiesDto = _appService.GetFullTree().ToList();
             ViewProductCategoryViewModel viewModel = new ViewProductCategoryViewModel();
 
-            viewModel.ProductCategories = _mapper.Map<IEnumerable<ProductCategoryDTO>, IEnumerable<ProductCategoryViewModel>>(productCategiesDto);
+            viewModel.ProductCategories = _mapper.Map<IList<ProductCategoryDTO>, IList<ProductCategoryViewModel>>(productCategiesDto);
 
             return View(viewModel);
         }
@@ -85,12 +85,12 @@ namespace TinyShoppingCart.Presentation.Admin.Controllers
                 return BadRequest();
             }
 
-            var fullTree = _appService.GetFullTree();
+            var fullTree = _appService.GetFullTree().ToList();
 
             ViewProductCategoryViewModel newViewModel = new ViewProductCategoryViewModel {
                 SelectedProductCategoryId = dto.Id
             };
-            newViewModel.ProductCategories = _mapper.Map<IEnumerable<ProductCategoryDTO>, IEnumerable<ProductCategoryViewModel>>(fullTree);
+            newViewModel.ProductCategories = _mapper.Map<IList<ProductCategoryDTO>, IList<ProductCategoryViewModel>>(fullTree);
 
             return PartialView("_TreePartial", newViewModel); 
         }
@@ -127,12 +127,12 @@ namespace TinyShoppingCart.Presentation.Admin.Controllers
                 return BadRequest();
             }
 
-            var fullTree = _appService.GetFullTree();
+            var fullTree = _appService.GetFullTree().ToList();
 
             ViewProductCategoryViewModel newViewModel = new ViewProductCategoryViewModel {
                 SelectedProductCategoryId = dto.Id
             };
-            newViewModel.ProductCategories = _mapper.Map<IEnumerable<ProductCategoryDTO>, IEnumerable<ProductCategoryViewModel>>(fullTree);
+            newViewModel.ProductCategories = _mapper.Map<IList<ProductCategoryDTO>, IList<ProductCategoryViewModel>>(fullTree);
 
             return PartialView("_TreePartial", newViewModel);
         }

@@ -17,6 +17,9 @@
             EDIT: "edit",
             REMOVE: "remove"
         };
+        var _treeEvents = {
+            INITIALIZED: "initialized"
+        };
         var _elementIds = {
             tree: "productCategoriesTree",
             contextMenu: "divMenu",
@@ -35,6 +38,8 @@
                 // Init context menu
                 var $contextMenu = $("#" + _elementIds.contextMenu);
                 _initContextMenu($productCategoryTree, $contextMenu);
+
+                _eventEmitter.emit(_treeEvents.INITIALIZED);
             });
         }
 
@@ -133,6 +138,10 @@
 
             registerRemoveEventHandlerForContextMenu: function(handler) {
                 _eventEmitter.on(_contextMenuEvents.REMOVE, handler);
+            },
+
+            registerInitializedEventHandlerForTree: function(handler) {
+                _eventEmitter.on(_treeEvents.INITIALIZED, handler);
             },
 
             removeSelectedElement: function() {
