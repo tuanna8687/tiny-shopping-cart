@@ -1,12 +1,12 @@
 @model TinyShoppingCart.Presentation.Admin.ViewModels.ViewProductCategoryViewModel
 
-<div class="row">
-    <div class="col-12">
-        <input type="text" id="searchText" class="form-control">
-        <button type="button" id="searchButton" class="btn btn-primary">Search</button>
-        <button type="button" id="expandButton" class="btn btn-primary">Expand All</button>
-        <button type="button" id="collasapeButton" class="btn btn-primary">Collapse All</button>
+<div class="form-row mb-4">
+    <div class="col">
+        <input type="text" id="searchText" class="form-control" placeholder="Search category name">
     </div>
+
+    <button type="button" id="searchButton" class="btn btn-primary ml-sm-3">Search</button>
+    <button type="button" id="expandCollapseAllButton" class="btn btn-primary ml-sm-3">Expand All</button>
 </div>
 
 <div class="row">
@@ -37,7 +37,6 @@
 @section scripts
 {
     @Html.Partial("_jQWidgetsTreeScriptsPartial")
-    @Html.Partial("_UtilityScriptsPartial")
     @Html.Partial("_ValidationScriptsPartial")
     @Html.Partial("_AjaxScriptsPartial")
 
@@ -46,15 +45,19 @@
         <script type="text/javascript" src="~/lib/jqwidgets/jqxmenu.js"></script>
         <script type="text/javascript" src="~/lib/jqwidgets/jqxwindow.js"></script>
         <script type="text/javascript" src="~/lib/jqwidgets/jqxlistbox.js"></script>
-        <script src="~/js/integrate-bootstrap-jquery-unobtrusive.js"></script>
-        <script src="~/js/product-category/index.js"></script>
+        <script type="text/javascript" src="~/js/integrate-bootstrap-jquery-unobtrusive.js"></script>
+        <script type="text/javascript" src="~/js/jqxtree-utilities.js"></script>
+        <script type="text/javascript" src="~/js/form-utilities.js"></script>
+        <script type="text/javascript" src="~/js/product-category/index.js"></script>
     </environment>
     <environment exclude="Development">
         <script type="text/javascript" src="~/lib/jqwidgets/jqxdropdownbutton.js" asp-append-version="true"></script>
         <script type="text/javascript" src="~/lib/jqwidgets/jqxmenu.js" asp-append-version="true"></script>
         <script type="text/javascript" src="~/lib/jqwidgets/jqxwindow.js" asp-append-version="true"></script>
         <script type="text/javascript" src="~/lib/jqwidgets/jqxlistbox.js" asp-append-version="true"></script>
-        <script src="~/js/integrate-bootstrap-jquery-unobtrusive.js"></script>
-        <script src="~/js/product-category/index.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/integrate-bootstrap-jquery-unobtrusive.js"></script>
+        <script type="text/javascript" src="~/js/jqxtree-utilities.js"></script>
+        <script type="text/javascript" src="~/js/form-utilities.js"></script>
+        <script type="text/javascript" src="~/js/product-category/index.js" asp-append-version="true"></script>
     </environment>
 }
